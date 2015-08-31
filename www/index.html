@@ -7,23 +7,28 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" href="img/square-cash.ico">
 
+
+    
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
+     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+     <script charset="utf-8" type="text/javascript" src="http://52.64.103.209/bmbackend/librerias.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    
 
-    <!-- your app's js -->
+    <!-- your app's js  <script src="cordova.js"></script> -->
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
   </head>
   <body ng-app="starter">
+  
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
@@ -35,7 +40,329 @@
       The views will be rendered in the <ion-nav-view> directive below
       Templates are in the /templates folder (but you could also
       have templates inline in this html file if you'd like).
+      <ion-nav-view></ion-nav-view>
     -->
-    <ion-nav-view></ion-nav-view>
+  <div id="principal" >
+    <div align="center" class="bar bar-header" >
+        <button class="button button-clear pull-center">Panel Principal</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="list card">
+    <a onclick='salir_index()' href="#" class="item item-icon-left">
+    <i  class="icon ion-close-circled"></i>
+    Salir al Inicio
+    </a>
+    <a id="prestar" name="prestar" href="#" class="item item-icon-left">
+    <i  class="icon ion-cash"></i>
+    Prestar
+    </a>
+
+     <a id="pagar" name="pagar" href="#" class="item item-icon-left">
+    <i  class="icon ion-card"></i>
+    Pagar
+    </a>
+    <div  id="images" style="overflow: scroll;"> 
+      <div id="imagenes"> 
+      </div>
+    </div>
+
+</div>
+</div>
+
+ <div id="prestamo" >
+    <div align="center" class="bar bar-header" >
+        <button class="button button-clear pull-center">Prestamo</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="list card">
+    <a onclick="salir_menu_principal('prestamo')" href="#" class="item item-icon-left">
+    <i  class="icon ion-close-circled"></i>
+    Menu Principal
+    </a>
+   
+    
+    <div align="center" class="list">
+
+    <label class="item item-input">
+    <input type="number" id="cedula" name="cedula" placeholder="Cedula">
+    <input type="hidden" id="idclient" name="idclient" value="" >
+    </label>
+    <label class="item item-input">
+    <input type="tel" id="telefono" require name="telefono" placeholder="Telefono">
+
+    </label>
+     <label class="item item-input">
+    <input type="text" id="nombre_cliente" require name="nombre_cliente" placeholder="Nombre Cliente">
+    </label>
+
+     <label class="item item-input">
+    
+    <input type="number" id="monto" require name="monto" placeholder="Monto a Prestar">
+    </label>
+    <label class="item item-input">
+   
+    <input type="number" id="porcentaje" require name="porcentaje" value="15" placeholder="Porcentaje">
+    </label>
+    <label class="item item-input">
+   
+    <input type="number" id="deuda_ant" readonly="true" name="deuda_ant"  placeholder="Deuda Anterior">
+    </label>
+     <a id="guardar_prestamo" class="button icon-left ion-checkmark-circled ">Guardar</a>
+      <a id="limpiar" onclick="limpiar_prestamos()" class="button icon-left ion-document ">Limpiar</a>
+    </div>
+
+</div>
+</div>
+
+<div id="pagos" >
+    <div align="center" class="bar bar-header" >
+        <button class="button button-clear pull-center">Pagos</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="list card">
+    <a onclick="salir_menu_principal_pago('pagos')" href="#" class="item item-icon-left">
+    <i  class="icon ion-close-circled"></i>
+    Menu Principal
+    </a>
+   
+    
+    <div align="center" class="list">
+
+    <label class="item item-input">
+    <input type="number" id="cedula_pago" name="cedula_pago" placeholder="Cedula">
+    <input type="hidden" id="idclient_pago" name="idclient_pago" value="" >
+    </label>
+    <label class="item item-input">
+    <input type="tel" id="telefono_pago" readonly="true" require name="telefono_pago" placeholder="Telefono">
+
+    </label>
+     <label class="item item-input">
+    <input type="text" id="nombre_cliente_pago" readonly="true" require name="nombre_cliente_pago" placeholder="Nombre Cliente">
+    </label>
+  
+   <label class="item item-input">
+    
+    <input type="number" id="monto_deuda_pagar" readonly="true" require name="monto_deuda_pagar" placeholder="Monto Deuda">
+    </label>
+
+
+    <label class="item item-input">
+    
+    <input type="number" id="monto_int" require name="monto_int" placeholder="Pago a Interes">
+    </label>
+     <label class="item item-input">
+    
+    <input type="number" id="monto_cap" require name="monto_cap" placeholder="Pago a Capital">
+    </label>
+     <a id="facturar" class="button icon-left ion-checkmark-circled ">Facturar</a>
+      <a id="limpiar_pagos" onclick="limpiar_pagos()" class="button icon-left ion-document ">Limpiar</a>
+    </div>
+
+</div>
+</div>
+
+  <div id="index" >
+    <div class="bar bar-header" >
+    <button class="button button-clear pull-center">BillMoney: ver.0.0.1</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div align="center">
+    <img src="img/square-cash.png">
+    </div>
+    
+    <div align="center" class="list">
+
+    <label class="item item-input">
+    <input type="text" id="usuario" require autofocus name="usuario" placeholder="Usuario">
+    </label>
+    <label class="item item-input">
+    <input type="password" id="clave" require name="clave" placeholder="Clave">
+
+    </label>
+    
+    </div>
+
+    <a id="entrar" class="button icon-left ion-checkmark-circled ">Intro</a>
+    
+    <a id="salir" class="button icon-left ion-close-circled ">Salir</a>
+   
+    <br>
+    <br>
+    <br>
+     <!--
+    <button id="registre_btn" name="registre_btn"  class="button button-block button-balanced">
+      Register
+    </button>
+    
+    <div class="bar bar-footer">
+    <button class="button button-clear pull-right">BitBUGSoluciones</button>
+    </div>
+    -->
+ </div>
+
+ <input type="hidden" id="iduser" value='' name="iduser">
   </body>
 </html>
+<script type="text/javascript">
+  //$('#registre').hide();
+  $('#principal').hide();
+  $('#prestamo').hide();
+  $('#pagos').hide();
+
+  $( "#entrar" ).click(function(){  
+      var usuario  = $("#usuario").val();
+      var clave  = $("#clave").val();
+      if(usuario=="" && clave==""){
+      alert('INGRESE VALORES EN LOS CAMPOS');
+      }else{
+      validar_usuarios(usuario,clave);}
+  });
+
+  $( "#guardar_prestamo" ).click(function(){  
+      var iduser  = $("#iduser").val();
+      var cliente  = $("#idclient").val();
+      var cedula  = $("#cedula").val();
+      var telefono  = $("#telefono").val();
+      var nombre_cliente  = $("#nombre_cliente").val();
+      var monto  = $("#monto").val();
+      var porcentaje  = $("#porcentaje").val();
+      var deuda_ant = $('#deuda_ant').val();
+
+
+      if(iduser=="" || cedula=="" || nombre_cliente=="" || monto=="" || monto==0 || porcentaje=="" || porcentaje==0){
+      alert('INGRESE VALORES EN LOS CAMPOS O ESTA COLOCANDO VALORES EN CERO');
+      }else{
+      prestar(cedula,telefono,nombre_cliente,monto,porcentaje,iduser,cliente,deuda_ant);}
+  });
+
+  $( "#facturar" ).click(function(){  
+      var iduser  = $("#iduser").val();
+      var cliente  = $("#idclient_pago").val();
+      var cedula  = $("#cedula_pago").val();
+     
+      var monto_int  = $("#monto_int").val();
+      var monto_cap  = $("#monto_cap").val();
+      var monto_deuda_pagar = $('#monto_deuda_pagar').val();
+
+      if(parseFloat(monto_cap) > parseFloat(monto_deuda_pagar)){
+        alert('NO SE PUEDE FACTURAR YA QUE EL MONTO DE PAGO DE CAPITAL ES MAYOR QUE EL QUE DEBE!');
+      }else{
+
+            if(iduser=="" || cedula=="" || monto_int=="" || monto_int=="0" || monto_cap=="" ){
+            alert('INGRESE VALORES EN LOS CAMPOS');
+            }else{
+              if(monto_deuda_pagar>0 && monto_deuda_pagar!=""){
+                  facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);}
+          }
+    }
+  });
+
+
+ $("#cedula").focusout(function(){ 
+      
+      var cedula  = $("#cedula").val();
+      var iduser = $("#iduser").val();
+
+      if(cedula!="" && iduser!=""){
+        var retorno = buscar_clientes(cedula,iduser);
+        $('#monto').focus();
+      }
+
+    
+  });
+
+ $("#cedula_pago").focusout(function(){ 
+      
+      var cedula  = $("#cedula_pago").val();
+      var iduser = $("#iduser").val();
+
+      if(cedula!="" && iduser!=""){
+        var retorno = buscar_clientes_pagos(cedula,iduser);
+        $('#monto_int').focus();
+      }
+
+    
+  });
+ 
+
+   $( "#prestar" ).click(function(){  
+     $('#principal').hide();
+     $('#prestamo' ).show( 1000 );
+     
+  });
+
+   $( "#pagar" ).click(function(){  
+     $('#principal').hide();
+     $('#pagos' ).show( 1000 );
+     
+  });
+
+function salir_index(){
+        $("#iduser").val('');
+        $('#principal').hide();
+        $( "#index" ).show( 1000 );
+      }
+
+function salir_menu_principal(contexto){
+       
+        $("#cedula").val('');
+        $("#telefono").val('');
+        $("#nombre_cliente").val('');
+        $("#monto").val('');
+        $("#porcentaje").val('');
+        $("#idclient").val('');
+        $('#deuda_ant').val('');
+
+        $('#'+contexto).hide();
+        $( "#principal" ).show( 1000 );
+      }
+
+function salir_menu_principal_pago(contexto){
+       
+        $("#cedula_pago").val('');
+        $("#telefono_pago").val('');
+        $("#nombre_cliente").val('');
+        $("#idclient_pago").val('');
+        $('#monto_deuda_pagar').val('');
+        $("#nombre_cliente_pago").val('');
+        $("#monto_int").val('');
+        $("#monto_cap").val('');
+        $('#'+contexto).hide();
+        $( "#principal" ).show( 1000 );
+      }
+
+function limpiar_prestamos(){
+       
+        $("#cedula").val('');
+        $("#telefono").val('');
+        $("#nombre_cliente").val('');
+        $("#monto").val('');
+        $("#porcentaje").val('');
+        $("#idclient").val('');
+        $('#deuda_ant').val('');
+        $("#cedula").focus();
+
+        
+      }
+function limpiar_pagos(){
+       
+        $("#cedula_pago").val('');
+        $("#telefono_pago").val('');
+        $("#nombre_cliente_pago").val('');
+        $("#monto_deuda_pagar").val('');
+        $("#monto_int").val('');
+        $("#monto_cap").val('');
+        $("#idclient").val('');
+        $("#cedula").focus();
+      }
+
+
+</script>
