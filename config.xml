@@ -17,7 +17,7 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-  <platform name="android">
-    <icon src="img/square-cash.png"/>
-</platform>
+  
+  <icon src="img/square-cash.png"/>
+
 </widget>
