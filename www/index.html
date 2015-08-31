@@ -7,6 +7,8 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+     
+
     <link rel="icon" href="img/square-cash.ico">
 
 
@@ -16,6 +18,7 @@
     -->
 
     <!-- ionic/angularjs js -->
+    
     <script src="lib/ionic/js/ionic.bundle.js"></script>
      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
      <script charset="utf-8" type="text/javascript" src="http://52.64.103.209/bmbackend/librerias.js"></script>
@@ -28,8 +31,9 @@
     <script src="js/services.js"></script>
     <script src="cordova.js"></script>
   </head>
-  <body ng-app="starter">
   
+  <body ng-app="starter">
+   
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
@@ -43,6 +47,8 @@
       have templates inline in this html file if you'd like).
       <ion-nav-view></ion-nav-view>
     -->
+   
+   
   <div id="principal" >
     <div align="center" class="bar bar-header" >
         <button class="button button-clear pull-center">Panel Principal</button>
@@ -208,7 +214,9 @@
     </div>
     -->
  </div>
-
+ <div align="center" id="loading">
+      <img src="img/FhHRx.gif" alt="">
+    </div>
  <input type="hidden" id="iduser" value='' name="iduser">
   </body>
 </html>
@@ -217,6 +225,7 @@
   $('#principal').hide();
   $('#prestamo').hide();
   $('#pagos').hide();
+  $('#loading').hide();
 
    $( "#salir" ).click(function(){  
          navigator.app.exitApp();        
@@ -245,7 +254,10 @@
       if(iduser=="" || cedula=="" || nombre_cliente=="" || monto=="" || monto==0 || porcentaje=="" || porcentaje==0){
       alert('INGRESE VALORES EN LOS CAMPOS O ESTA COLOCANDO VALORES EN CERO');
       }else{
-      prestar(cedula,telefono,nombre_cliente,monto,porcentaje,iduser,cliente,deuda_ant);}
+      $('#loading').show();
+      prestar(cedula,telefono,nombre_cliente,monto,porcentaje,iduser,cliente,deuda_ant);
+      $('#loading').hide();
+      }
   });
 
   $( "#facturar" ).click(function(){  
@@ -265,7 +277,10 @@
             alert('INGRESE VALORES EN LOS CAMPOS');
             }else{
               if(monto_deuda_pagar>0 && monto_deuda_pagar!=""){
-                  facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);}
+                  $('#loading').show();
+                  facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);
+                  $('#loading').hide();
+                  }
           }
     }
   });
@@ -277,7 +292,9 @@
       var iduser = $("#iduser").val();
 
       if(cedula!="" && iduser!=""){
+        $('#loading').show();
         var retorno = buscar_clientes(cedula,iduser);
+        $('#loading').hide();
         $('#monto').focus();
       }
 
@@ -290,7 +307,9 @@
       var iduser = $("#iduser").val();
 
       if(cedula!="" && iduser!=""){
+        $('#loading').show();
         var retorno = buscar_clientes_pagos(cedula,iduser);
+        $('#loading').hide();
         $('#monto_int').focus();
       }
 
@@ -368,6 +387,11 @@ function limpiar_pagos(){
         $("#idclient").val('');
         $("#cedula").focus();
       }
+
+
+
+
+
 
 
 </script>
