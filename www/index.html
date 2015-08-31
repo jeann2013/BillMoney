@@ -279,7 +279,7 @@
               if(monto_deuda_pagar>0 && monto_deuda_pagar!=""){
                   $('#loading').show();
                   facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);
-                  $('#loading').hide();
+                 
                   }
           }
     }
@@ -294,7 +294,7 @@
       if(cedula!="" && iduser!=""){
         $('#loading').show();
         var retorno = buscar_clientes(cedula,iduser);
-        $('#loading').hide();
+       
         $('#monto').focus();
       }
 
@@ -309,7 +309,7 @@
       if(cedula!="" && iduser!=""){
         $('#loading').show();
         var retorno = buscar_clientes_pagos(cedula,iduser);
-        $('#loading').hide();
+        
         $('#monto_int').focus();
       }
 
