@@ -144,6 +144,7 @@
     <label class="item item-input">
     <input type="number" id="cedula_pago" name="cedula_pago" placeholder="Cedula">
     <input type="hidden" id="idclient_pago" name="idclient_pago" value="" >
+     <input type="hidden" id="autorizar_pago_capital" name="autorizar_pago_capital" value="0" >
     </label>
     <label class="item item-input">
     <input type="tel" id="telefono_pago" readonly="true" require name="telefono_pago" placeholder="Telefono">
@@ -254,9 +255,10 @@
       if(iduser=="" || cedula=="" || nombre_cliente=="" || monto=="" || monto==0 || porcentaje=="" || porcentaje==0){
       alert('INGRESE VALORES EN LOS CAMPOS O ESTA COLOCANDO VALORES EN CERO');
       }else{
-      $('#loading').show();
-      prestar(cedula,telefono,nombre_cliente,monto,porcentaje,iduser,cliente,deuda_ant);
-      $('#loading').hide();
+          $('#guardar_prestamo').hide();
+          $('#loading').show();
+          prestar(cedula,telefono,nombre_cliente,monto,porcentaje,iduser,cliente,deuda_ant);
+          
       }
   });
 
@@ -268,19 +270,33 @@
       var monto_int  = $("#monto_int").val();
       var monto_cap  = $("#monto_cap").val();
       var monto_deuda_pagar = $('#monto_deuda_pagar').val();
+     
 
       if(parseFloat(monto_cap) > parseFloat(monto_deuda_pagar)){
         alert('NO SE PUEDE FACTURAR YA QUE EL MONTO DE PAGO DE CAPITAL ES MAYOR QUE EL QUE DEBE!');
       }else{
 
-            if(iduser=="" || cedula=="" || monto_int=="" || monto_int=="0" || monto_cap=="" ){
+            if(iduser=="" || cedula=="" || monto_int=="" || monto_cap=="" ){
             alert('INGRESE VALORES EN LOS CAMPOS');
             }else{
               if(monto_deuda_pagar>0 && monto_deuda_pagar!=""){
-                  $('#loading').show();
-                  facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);
-                 
+                  
+                  if(monto_int==0 && monto_cap > 0){
+                    retorno = $('#autorizar_pago_capital').val();
+                    if(retorno==0){alert('DEBE DE REALIZAR UN PAGO A INTERES');}else{
+                      $('#facturar').hide();
+                      $('#loading').show();
+                      facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);
+                     
+                    }
+                  }else{
+                     $('#facturar').hide();
+                     $('#loading').show();
+                     facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);
+                    
                   }
+                 
+              }
           }
     }
   });
@@ -385,6 +401,7 @@ function limpiar_pagos(){
         $("#monto_int").val('');
         $("#monto_cap").val('');
         $("#idclient").val('');
+        $("#autorizar_pago_capital").val(0);
         $("#cedula").focus();
       }
 
