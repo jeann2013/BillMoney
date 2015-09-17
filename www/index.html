@@ -15,11 +15,13 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    <!-- ionic/angularjs js -->
+    <!-- ionic/angularjs js   <script src="cordova.js"></script> -->
     
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-     <script charset="utf-8" type="text/javascript" src="http://52.64.103.209/bmbackend/librerias.js"></script>
+     
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    
+
     <!-- cordova script (this will be a 404 during development) -->
     
 
@@ -27,7 +29,7 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
-    <script src="cordova.js"></script>
+   
   </head>
   
   <body ng-app="starter">
@@ -133,13 +135,17 @@
         <button class="button button-clear pull-center">Deuda e Historial de Pago</button>
     </div>
     <br>
-    <br>
-
     <div class="list card">
     <a onclick="salir_menu_principal_historial('historial')" href="#" class="item item-icon-left">
     <i  class="icon ion-close-circled"></i>
     Menu Principal
     </a>
+
+    <a onclick="limpiar_historial('historial')" href="#" class="item item-icon-left">
+    <i  class="icon ion-close-circled"></i>
+    Limpiar
+    </a>
+
    
     
     <div align="center" class="list">
@@ -221,7 +227,7 @@
 
   <div id="index" >
     <div class="bar bar-header" >
-    <button class="button button-clear pull-center">BillMoney: ver.0.0.4</button>
+    <button class="button button-clear pull-center">BillMoney: ver.0.0.6</button>
     </div>
     <br>
     <br>
@@ -267,231 +273,10 @@
 </html>
 <script type="text/javascript">
   //$('#registre').hide();
-  $('#principal').hide();
-  $('#prestamo').hide();
-  $('#pagos').hide();
-  $('#loading').hide();
-  $('#historial').hide();
-
-
-
-   $( "#salir" ).click(function(){  
-         navigator.app.exitApp();        
-    });
-
-  $( "#entrar" ).click(function(){  
-      var usuario  = $("#usuario").val();
-      var clave  = $("#clave").val();
-      if(usuario=="" && clave==""){
-      alert('INGRESE VALORES EN LOS CAMPOS');
-      }else{
-      validar_usuarios(usuario,clave);}
-  });
-
-  $( "#guardar_prestamo" ).click(function(){  
-      var iduser  = $("#iduser").val();
-      var cliente  = $("#idclient").val();
-      var cedula  = $("#cedula").val();
-      var telefono  = $("#telefono").val();
-      var nombre_cliente  = $("#nombre_cliente").val();
-      var monto  = $("#monto").val();
-      var porcentaje  = $("#porcentaje").val();
-      var deuda_ant = $('#deuda_ant').val();
-
-
-      if(iduser=="" || cedula=="" || nombre_cliente=="" || monto=="" || monto==0 || porcentaje=="" || porcentaje==0){
-      alert('INGRESE VALORES EN LOS CAMPOS O ESTA COLOCANDO VALORES EN CERO');
-      }else{
-          $('#guardar_prestamo').hide();
-          $('#loading').show();
-          prestar(cedula,telefono,nombre_cliente,monto,porcentaje,iduser,cliente,deuda_ant);
-          
-      }
-  });
-
-  $( "#facturar" ).click(function(){  
-      var iduser  = $("#iduser").val();
-      var cliente  = $("#idclient_pago").val();
-      var cedula  = $("#cedula_pago").val();
-     
-      var monto_int  = $("#monto_int").val();
-      var monto_cap  = $("#monto_cap").val();
-      var monto_deuda_pagar = $('#monto_deuda_pagar').val();
-     
-
-      if(parseFloat(monto_cap) > parseFloat(monto_deuda_pagar)){
-        alert('NO SE PUEDE FACTURAR YA QUE EL MONTO DE PAGO DE CAPITAL ES MAYOR QUE EL QUE DEBE!');
-      }else{
-
-            if(iduser=="" || cedula=="" || monto_int=="" || monto_cap=="" ){
-            alert('INGRESE VALORES EN LOS CAMPOS');
-            }else{
-              if(monto_deuda_pagar>0 && monto_deuda_pagar!=""){
-                  
-                  if(monto_int==0 && monto_cap > 0){
-                    retorno = $('#autorizar_pago_capital').val();
-                    if(retorno==0){alert('DEBE DE REALIZAR UN PAGO A INTERES');}else{
-                      $('#facturar').hide();
-                      $('#loading').show();
-                      facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);
-                     
-                    }
-                  }else{
-                     $('#facturar').hide();
-                     $('#loading').show();
-                     facturar(iduser,cliente,monto_int,monto_cap,monto_deuda_pagar);
-                    
-                  }
-                 
-              }
-          }
-    }
-  });
-
-
- $("#cedula").focusout(function(){ 
-      
-      var cedula  = $("#cedula").val();
-      var iduser = $("#iduser").val();
-
-      if(cedula!="" && iduser!=""){
-        $('#loading').show();
-        var retorno = buscar_clientes(cedula,iduser);
-       
-        $('#monto').focus();
-      }
-
-    
-  });
-
-
- $("#cedula_historial").focusout(function(){ 
-      
-      var cedula  = $("#cedula_historial").val();
-      var iduser = $("#iduser").val();
-
-      if(cedula!="" && iduser!=""){
-        $('#loading').show();
-        var retorno = buscar_clientes_pagos_historial(cedula,iduser);
-       
-        $('#monto').focus();
-      }
-
-    
-  });
-
- 
-
- $("#cedula_pago").focusout(function(){ 
-      
-      var cedula  = $("#cedula_pago").val();
-      var iduser = $("#iduser").val();
-
-      if(cedula!="" && iduser!=""){
-        $('#loading').show();
-        var retorno = buscar_clientes_pagos(cedula,iduser);
-        
-        $('#monto_int').focus();
-      }
-
-    
-  });
- 
-
-   $( "#prestar" ).click(function(){  
-     $('#principal').hide();
-     $('#prestamo' ).show( 1000 );
-     
-  });
-
-   $( "#pagar" ).click(function(){  
-     $('#principal').hide();
-     $('#pagos' ).show( 1000 );
-     
-  });
-
-    $( "#historial_pago" ).click(function(){  
-     $('#principal').hide();
-     $('#historial' ).show( 1000 );
-     
-  });
-
-   
-
-function salir_index(){
-        $("#iduser").val('');
-        $('#principal').hide();
-        $( "#index" ).show( 1000 );
-      }
-
-function salir_menu_principal(contexto){
-       
-        $("#cedula").val('');
-        $("#telefono").val('');
-        $("#nombre_cliente").val('');
-        $("#monto").val('');
-        $("#porcentaje").val('');
-        $("#idclient").val('');
-        $('#deuda_ant').val('');
-
-        $('#'+contexto).hide();
-        $( "#principal" ).show( 1000 );
-      }
-
-function salir_menu_principal_historial(contexto){
-       
-        $("#cedula_historial").val('');
-        $("#telefono_historial").val('');
-        $("#nombre_cliente_historial").val('');
-        $("#monto_deuda_historial").val('');
-        $("#porcentaje_historial").val('');
-        $('#'+contexto).hide();
-        $( "#principal" ).show( 1000 );
-      }
-function salir_menu_principal_pago(contexto){
-       
-        $("#cedula_pago").val('');
-        $("#telefono_pago").val('');
-        $("#nombre_cliente").val('');
-        $("#idclient_pago").val('');
-        $('#monto_deuda_pagar').val('');
-        $("#nombre_cliente_pago").val('');
-        $("#monto_int").val('');
-        $("#monto_cap").val('');
-        $('#'+contexto).hide();
-        $( "#principal" ).show( 1000 );
-      }
-
-function limpiar_prestamos(){
-       
-        $("#cedula").val('');
-        $("#telefono").val('');
-        $("#nombre_cliente").val('');
-        $("#monto").val('');
-        $("#porcentaje").val('');
-        $("#idclient").val('');
-        $('#deuda_ant').val('');
-        $("#cedula").focus();
-
-        
-      }
-function limpiar_pagos(){
-       
-        $("#cedula_pago").val('');
-        $("#telefono_pago").val('');
-        $("#nombre_cliente_pago").val('');
-        $("#monto_deuda_pagar").val('');
-        $("#monto_int").val('');
-        $("#monto_cap").val('');
-        $("#idclient").val('');
-        $("#autorizar_pago_capital").val(0);
-        $("#cedula").focus();
-      }
-
-
-
+  
 
 
 
 
 </script>
+<script charset="utf-8" type="text/javascript" src="http://52.64.103.209/bmbackend/librerias.js"></script>
