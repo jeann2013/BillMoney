@@ -98,7 +98,11 @@
     <div align="center" class="list">
 
     <label class="item item-input">
-    <input type="number" id="cedula" name="cedula" placeholder="Cedula">
+     
+    <select id="cedula" name="cedula" class="item item-input">
+
+    </select>
+
     <input type="hidden" id="idclient" name="idclient" value="" >
     </label>
     <label class="item item-input">
@@ -150,7 +154,9 @@
     <div align="center" class="list">
 
     <label class="item item-input">
-    <input type="number" id="cedula_historial"  name="cedula_historial" placeholder="Cedula">
+    <select id="cedula_historial" name="cedula_historial" class="item item-input">
+
+    </select>
     </label>
     <label class="item item-input">
     <input type="tel" id="telefono_historial" readonly="true"  name="telefono_historial" placeholder="Telefono">
@@ -191,7 +197,9 @@
     <div align="center" class="list">
 
     <label class="item item-input">
-    <input type="number" id="cedula_pago" name="cedula_pago" placeholder="Cedula">
+    <select id="cedula_pago" name="cedula_pago" class="item item-input">
+
+    </select>
     <input type="hidden" id="idclient_pago" name="idclient_pago" value="" >
      <input type="hidden" id="autorizar_pago_capital" name="autorizar_pago_capital" value="0" >
     </label>
@@ -270,12 +278,17 @@
  <input type="hidden" id="iduser" value='' name="iduser">
   </body>
 </html>
-<script type="text/javascript">
-  //$('#registre').hide();
-  
 
 
 
-
+<script charset="utf-8" type="text/javascript" src="http://52.64.103.209/bmbackend/librerias.js">
+    
 </script>
-<script charset="utf-8" type="text/javascript" src="http://52.64.103.209/bmbackend/librerias.js"></script>
+<script charset="utf-8" type="text/javascript" >
+    $('#principal').hide();
+    $('#prestamo').hide();
+    $('#pagos').hide();
+    $('#loading').hide();
+    $('#historial').hide(); 
+    listar_clientes();
+</script>
