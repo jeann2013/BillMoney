@@ -1,0 +1,51 @@
+<div id="pagos" >
+    <div align="center" class="bar bar-header" >
+        <button class="button button-clear pull-center">Pagos</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="list card">
+    <a onclick="salir_menu_principal_pago('pagos')" href="#" class="item item-icon-left">
+    <i  class="icon ion-close-circled"></i>
+    Menu Principal
+    </a>
+   
+    
+    <div align="center" class="list">
+
+    <label class="item item-input">
+    <select id="cedula_pago" name="cedula_pago" class="item item-input">
+
+    </select>
+    <input type="hidden" id="idclient_pago" name="idclient_pago" value="" >
+     <input type="hidden" id="autorizar_pago_capital" name="autorizar_pago_capital" value="0" >
+    </label>
+    <label class="item item-input">
+    <input type="tel" id="telefono_pago" readonly="true" require name="telefono_pago" placeholder="Telefono">
+
+    </label>
+     <label class="item item-input">
+    <input type="text" id="nombre_cliente_pago" readonly="true" require name="nombre_cliente_pago" placeholder="Nombre Cliente">
+    </label>
+  
+   <label class="item item-input">
+    
+    <input type="number" id="monto_deuda_pagar" readonly="true" require name="monto_deuda_pagar" placeholder="Monto Deuda">
+    </label>
+
+
+    <label class="item item-input">
+    
+    <input type="number" id="monto_int" require name="monto_int" placeholder="Pago a Interes">
+    </label>
+     <label class="item item-input">
+    
+    <input type="number" id="monto_cap" require name="monto_cap" placeholder="Pago a Capital">
+    </label>
+     <a id="facturar" class="button icon-left ion-checkmark-circled ">Facturar</a>
+      <a id="limpiar_pagos" onclick="limpiar_pagos()" class="button icon-left ion-document ">Limpiar</a>
+    </div>
+
+</div>
+</div>
