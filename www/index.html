@@ -69,7 +69,7 @@
     </a>
     <a id="montos_cobros" name="montos_cobros" href="#" class="item item-icon-left">
     <i  class="icon ion-android-list"></i>
-    Montos Generales Capital/Interes
+    Mon. Prestado/Mon. Cobro
     </a>
 
 
@@ -141,47 +141,10 @@
     <i  class="icon ion-close-circled"></i>
     Menu Principal
     </a>
-
-    <a onclick="limpiar_historial('deuda_cobros_generales')" href="#" class="item item-icon-left">
-    <i  class="icon ion-close-circled"></i>
-    Limpiar
-    </a>
-
-   
-    
-    <div align="center" class="list">
-
-    <label class="item item-input">
-    <select id="cedula_historial" name="cedula_historial" class="item item-input">
-
-    </select>
-    </label>
-     <label class="item item-input">
-    <select id="tipo_pago" name="tipo_pago" class="item item-input">
-        <option value="0">Todo</option>
-        <option value="1">Interes</option>
-        <option value="2">Capital</option>
-    </select>
-    </label>
-    <label class="item item-input">
-    <input type="tel" id="telefono_historial" readonly="true"  name="telefono_historial" placeholder="Telefono">
-    </label>
-    <label class="item item-input">
-    <input type="text" id="nombre_cliente_historial" readonly="true"  name="nombre_cliente_historial" placeholder="Nombre Cliente">
-    </label>
-     <label class="item item-input">
-    <input type="text" id="monto_deuda_historial" readonly="true"  name="monto_deuda_historial" placeholder="Monto Deuda">
-    </label>
-    <label class="item item-input">
-    <input type="text" id="porcentaje_historial" readonly="true"  name="porcentaje_historial" placeholder="Porcentaje">
-    </label>
-    <div id="padre">
-      <ul id="pagos_historial_detalle">
+     <div id="padre_cobro">
+      <ul id="cobros_montos">
       </ul>
     </div>
-    </div>
-    
-
 </div>
 </div>
 
@@ -293,7 +256,7 @@
 
   <div id="index" >
     <div class="bar bar-header" >
-    <button class="button button-clear pull-center">JeanMoney: ver.0.0.8</button>
+    <button class="button button-clear pull-center">JeanMoney: ver.0.0.9</button>
     </div>
     <br>
     <br>
